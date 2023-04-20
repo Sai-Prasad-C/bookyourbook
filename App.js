@@ -10,7 +10,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Chintu"
+          component={Login}
+        />
         <Stack.Screen name="Homepage" component={Homepage} />
       </Stack.Navigator>
     </NavigationContainer>
