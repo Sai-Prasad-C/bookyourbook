@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  Button,
-  Alert,
-  Pressable,
-} from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { CreateStackNavigator } from "@react-navigation/stack";
-import Constants from "expo-constants";
+import { Text, View, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 class Homepage extends Component {
   render() {

@@ -8,50 +8,34 @@ import {
   Alert,
   Pressable,
 } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { CreateStackNavigator } from "@react-navigation/stack";
-import Constants from "expo-constants";
+import { useNavigation } from "@react-navigation/native";
 
-class Login extends Component {
-  constructor(args) {
-    super(args);
-    this.state = { username: "", password: "" };
-  }
+export default function Login() {
+  const navigation = useNavigation();
 
-  onLogin() {
-    const { username, password } = this.state;
-    if (username == "8888888888" && password == "123") {
-      Alert.alert("Successfully Logged in");
-    } else {
-      Alert.alert("User not found");
-    }
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Phone Number without +91"
-          maxLength={10}
-          style={styles.input}
-          onChangeText={(username) => this.setState({ username })}
-        />
-        <TextInput
-          placeholder="Password"
-          secureTextEntry={true}
-          style={styles.input}
-          onChangeText={(password) => this.setState({ password })}
-        />
-        <Pressable
-          style={styles.login}
-          onPress={this.onLogin.bind(this)}
-          title="   Login   "
-        >
-          <Text style={{ color: "white", fontWeight: "bold" }}>LOGIN</Text>
-        </Pressable>
-      </View>
-    );
-  }
+  return (
+    <View style={styles.container}>
+      <TextInput
+        placeholder="Phone Number"
+        maxLength={10}
+        style={styles.input}
+        onChangeText={(username) => this.setState({ username })}
+      />
+      <TextInput
+        placeholder="Password"
+        secureTextEntry={true}
+        style={styles.input}
+        onChangeText={(password) => this.setState({ password })}
+      />
+      <Pressable
+        style={styles.login}
+        onPress={() => navigation.navigate("Homepage")}
+        title="   Login   "
+      >
+        <Text style={{ color: "white", fontWeight: "bold" }}>LOGIN</Text>
+      </Pressable>
+    </View>
+  );
 }
 
 styles = StyleSheet.create({
@@ -79,5 +63,3 @@ styles = StyleSheet.create({
     borderRadius: 25,
   },
 });
-
-export default Login;
