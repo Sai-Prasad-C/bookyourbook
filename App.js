@@ -1,14 +1,13 @@
-
-import React, { Component } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Constants from "expo-constants";
-import {Homepage} from "./Screens/Homepage.js";
-import {Login} from "./Screens/Login.js";
+import Homepage from "./Screens/Homepage.js";
+import Login from "./Screens/Login.js";
 
 const Stack = createStackNavigator();
-export default class App extends Component {
-  render(){
+
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -17,9 +16,10 @@ export default class App extends Component {
           name="Chintu"
           component={Login}
         />
-        <Stack.Screen name="Homepage" component={Homepage} />
+        <Stack.Screen options={{ headerShown: false }} name="Homepage" component={Homepage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
-}
+};
+
+export default App;

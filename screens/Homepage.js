@@ -1,18 +1,15 @@
-import React, { Component } from "react";
+import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 
+export default Homepage = () => {
+  return (
+    <View style={styles.container}>
+      <Text> Home Page</Text>
+    </View>
+  );
+};
 
-class Homepage extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text> Home Page</Text>
-      </View>
-    );
-  }
-}
-
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
@@ -37,5 +34,3 @@ styles = StyleSheet.create({
     borderRadius: 25,
   },
 });
-
-export default Homepage;
