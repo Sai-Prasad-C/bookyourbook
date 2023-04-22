@@ -10,14 +10,12 @@ import {
   Image,
   StatusBar,
 } from 'react-native';
+import BottomNavigator from "./BottomNavigator.js";
 
-class Home extends Component {
-    render () {
+export default Home = () => {
       return(
         <View style={{flex:1,}}>
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Book View Page</Text>
+          <BottomNavigator/>
         </View>
       )
-    }
   }
-  export default Home

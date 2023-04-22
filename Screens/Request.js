@@ -11,13 +11,12 @@ import {
   StatusBar,
 } from 'react-native';
 
-class Home extends Component {
-    render () {
+export default Request = () => {
+    
       return(
         <View style={{flex:1,}}>
-          <Text style={{ color: 'white', fontWeight: 'bold' }}>Book View Page</Text>
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Requests Page</Text>
         </View>
       )
-    }
+    
   }
-  export default Home

@@ -48,7 +48,7 @@ export default Login = () => {
         [
           {
             text: 'OK',
-            onPress: () => navigation.navigate('Homepage'),
+            onPress: () => navigation.navigate('Home'),
           },
         ],
         { cancelable: true }
