@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Text,
   View,
@@ -10,6 +10,8 @@ import {
   Button,
   Pressable,
   ScrollView,
+  FlatList,
+  Alert,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
@@ -17,6 +19,53 @@ export default Homepage = () => {
   const [searchText, setSearchText] = useState('');
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const topImageRef = useRef();
+
+  const images = [
+    { id: 1, source: require('../images/topImage.png') },
+    { id: 2, source: require('../images/topImage.png') },
+    { id: 3, source: require('../images/topImage.png') },
+  ];
+
+  const handleImageSwipe = (index) => {
+    setCurrentIndex(index);
+  };
+  const renderImage = ({ item }) => {
+    return (
+      <View style={styles.imageContainer}>
+        <ImageBackground
+          style={styles.topImage}
+          source={item.source}
+          resizeMode="contain">
+          <Text style={{ color: 'white', marginTop: 10, marginLeft: 10 }}>
+            Find out the best books to read
+          </Text>
+          <Text style={{ color: 'white', marginLeft: 10 }}>
+            When you don't even know what
+          </Text>
+          <Text style={{ color: 'white', marginLeft: 10 }}>To read!!!</Text>
+          <Pressable style={styles.button} onPress={handleExplore}>
+            <Text style={{ fontSize: 12, color: '#F89182' }}>Explore{currentIndex}</Text>
+          </Pressable>
+        </ImageBackground>
+      </View>
+    );
+  };
+  const renderDot = (index) => {
+    const isActive = index === currentIndex;
+    return (
+      <TouchableOpacity
+        key={index}
+        disabled={true}
+        style={[styles.dot, isActive && styles.activeDot]}
+        onPress={() => handleImageSwipe(index)}
+      />
+    );
+  };
+  const handleExplore = () => {
+    Alert.alert("Nothing to show")
+  }
 
   const handleSearchPress = () => {
     setIsSearchExpanded(true);
@@ -84,44 +133,28 @@ export default Homepage = () => {
           </TouchableOpacity>
         )}
       </View>
-      <ScrollView horizontal={true} style={styles.topImageContainer}>
-        <ImageBackground style={styles.topImage} source={require('../images/topImage.png')} resizeMode="contain" >
-          <Text style={{ color: 'white', marginTop: 10, marginLeft: 10 }}>
-            Find out the best books to read
-          </Text>
-          <Text style={{ color: 'white', marginLeft: 10 }}>
-            When you don't even know what
-          </Text>
-          <Text style={{ color: 'white', marginLeft: 10 }}>To read!!!</Text>
-          <Pressable style={styles.button}>
-            <Text style={{ fontSize: 12, color: '#F89182' }}>Explore</Text>
-          </Pressable>
-        </ImageBackground>
-        <ImageBackground style={styles.topImage} source={require('../images/topImage.png')} resizeMode="contain" >
-          <Text style={{ color: 'white', marginTop: 10, marginLeft: 10 }}>
-            Find out the best books to read
-          </Text>
-          <Text style={{ color: 'white', marginLeft: 10 }}>
-            When you don't even know what
-          </Text>
-          <Text style={{ color: 'white', marginLeft: 10 }}>To read!!!</Text>
-          <Pressable style={styles.button}>
-            <Text style={{ fontSize: 12, color: '#F89182' }}>Explore</Text>
-          </Pressable>
-        </ImageBackground>
-        <ImageBackground style={styles.topImage} source={require('../images/topImage.png')} resizeMode="contain">
-          <Text style={{ color: 'white', marginTop: 10, marginLeft: 10 }}>
-            Find out the best books to read
-          </Text>
-          <Text style={{ color: 'white', marginLeft: 10 }}>
-            When you don't even know what
-          </Text>
-          <Text style={{ color: 'white', marginLeft: 10 }}>To read!!!</Text>
-          <Pressable style={styles.button}>
-            <Text style={{ fontSize: 12, color: '#F89182' }}>Explore</Text>
-          </Pressable>
-        </ImageBackground>
-      </ScrollView>
+      <View style={{height:190}}>
+      <FlatList
+        ref = {topImageRef}
+        data={images}
+        keyExtractor={(item) => item.id.toString()}
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled={true}
+        renderItem={renderImage}
+        onMomentumScrollEnd={(event) => {
+          const index = Math.round(
+            event.nativeEvent.contentOffset.x /
+              event.nativeEvent.layoutMeasurement.width
+          );
+          handleImageSwipe(index);
+        }}
+        contentContainerStyle={styles.topImageContainer}
+      />
+      </View>
+      <View style={styles.dotsContainer}>
+        {[0, 1, 2].map((index) => renderDot(index))}
+      </View>
     </View>
   );
 };
@@ -134,17 +167,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#250322',
   },
   topImageContainer: {
-    // padding: '2%',
-    margin: '3%',
-    borderWidth: 0,
-    height:'20%',
-    width: '90%',
-    borderRadius: 11,
+    // paddingBottom: '2%',
+    margin: '5%',
+    height: 160,
+    // borderRadius: 11,
   },
   topImage: {
     marginRight: 16,
-    width:350,
-    height:160,
+    width: 350,
+    height: 160,
   },
   button: {
     marginTop: 15,
@@ -156,6 +187,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 5,
+  },
+  dotsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#ccc',
+    marginHorizontal: 4,
+  },
+  activeDot: {
+    width: 65,
+    backgroundColor: '#F2920B',
   },
   searchBar: {
     flexDirection: 'row',
