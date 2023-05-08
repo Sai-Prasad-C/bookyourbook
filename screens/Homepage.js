@@ -12,8 +12,10 @@ import {
   ScrollView,
   FlatList,
   Alert,
+  Image,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 export default Homepage = () => {
   const [searchText, setSearchText] = useState('');
@@ -28,6 +30,99 @@ export default Homepage = () => {
     { id: 3, source: require('../images/topImage.png') },
   ];
 
+  const DATA = [
+  {
+    id: '1',
+    category: 'Fiction',
+    books: [
+      { id: '1', title: 'Book 1', image: require('../images/waltdisney.png') },
+      { id: '2', title: 'Book 2', image: require('../images/waltdisney.png') },
+      { id: '3', title: 'Book 3', image: require('../images/waltdisney.png') },
+      { id: '4', title: 'Book 4', image: require('../images/waltdisney.png') },
+      { id: '5', title: 'Book 5', image: require('../images/waltdisney.png') },
+      { id: '6', title: 'Book 6', image: require('../images/waltdisney.png') },
+      { id: '7', title: 'Book 7', image: require('../images/waltdisney.png') },
+      { id: '8', title: 'Book 8', image: require('../images/waltdisney.png') },
+      { id: '9', title: 'Book 9', image: require('../images/waltdisney.png') }
+    ],
+  },
+  {
+    id: '2',
+    category: 'Non-Fiction',
+    books: [
+      { id: '10', title: 'Book 10', image: require('../images/waltdisney.png') },
+      { id: '11', title: 'Book 11', image: require('../images/waltdisney.png') },
+      { id: '12', title: 'Book 12', image: require('../images/waltdisney.png') },
+      { id: '13', title: 'Book 13', image: require('../images/waltdisney.png') },
+      { id: '14', title: 'Book 14', image: require('../images/waltdisney.png') },
+      { id: '15', title: 'Book 15', image: require('../images/waltdisney.png') },
+      { id: '16', title: 'Book 16', image: require('../images/waltdisney.png') },
+      { id: '17', title: 'Book 17', image: require('../images/waltdisney.png') },
+      { id: '18', title: 'Book 18', image: require('../images/waltdisney.png') }
+    ],
+  },
+  {
+    id: '3',
+    category: 'Mystery',
+    books: [
+      { id: '19', title: 'Book 19', image: require('../images/waltdisney.png') },
+      { id: '20', title: 'Book 20', image: require('../images/waltdisney.png') },
+      { id: '21', title: 'Book 21', image: require('../images/waltdisney.png') },
+      { id: '22', title: 'Book 22', image: require('../images/waltdisney.png') },
+      { id: '23', title: 'Book 23', image: require('../images/waltdisney.png') },
+      { id: '24', title: 'Book 24', image: require('../images/waltdisney.png') },
+      { id: '25', title: 'Book 25', image: require('../images/waltdisney.png') },
+      { id: '26', title: 'Book 26', image: require('../images/waltdisney.png') },
+      { id: '27', title: 'Book 27', image: require('../images/waltdisney.png') }
+    ],
+  },
+  {
+    id: '4',
+    category: 'Biography',
+    books: [
+      { id: '28', title: 'Book 28', image: require('../images/waltdisney.png') },
+      { id: '29', title: 'Book 29', image: require('../images/waltdisney.png') },
+      { id: '30', title: 'Book 30', image: require('../images/waltdisney.png') },
+      { id: '31', title: 'Book 31', image: require('../images/waltdisney.png') },
+      { id: '32', title: 'Book 32', image: require('../images/waltdisney.png') },
+      { id: '33', title: 'Book 33', image: require('../images/waltdisney.png') },
+      { id: '34', title: 'Book 34', image: require('../images/waltdisney.png') },
+      { id: '35', title: 'Book 35', image: require('../images/waltdisney.png') },
+      { id: '36', title: 'Book 36', image: require('../images/waltdisney.png') }
+    ],
+  },
+  {
+    id: '5',
+    category: 'All',
+    books: [DATA]
+  }
+];
+
+  const [selectedCategory, setSelectedCategory] = useState('Fiction');
+
+  const renderCategoryItem = ({ item }) => (
+    <TouchableOpacity
+      style={[
+        styles.categoryItem,
+        selectedCategory === item.category && styles.selectedCategoryItem,
+      ]}
+      onPress={() => setSelectedCategory(item.category)}>
+      <Text style={styles.categoryTitle}>{item.category}</Text>
+    </TouchableOpacity>
+  );
+    
+  const renderBookItem = ({ item }) => (
+    <View style={styles.bookContainer}>
+      <Image source={item.image} style={styles.bookImage} />
+
+      <Text style={styles.bookTitle}>{item.title}</Text>
+    </View>
+  );
+
+  const filteredBooks = DATA.find(
+    (category) => category.category === selectedCategory
+  )?.books;
+
   const handleImageSwipe = (index) => {
     setCurrentIndex(index);
   };
@@ -38,7 +133,7 @@ export default Homepage = () => {
           style={styles.topImage}
           source={item.source}
           resizeMode="contain">
-          <Text style={{ color: 'white', marginTop: 10, marginLeft: 10 }}>
+          <Text style={{ color: 'white', marginTop: 15, marginLeft: 10 }}>
             Find out the best books to read
           </Text>
           <Text style={{ color: 'white', marginLeft: 10 }}>
@@ -46,7 +141,7 @@ export default Homepage = () => {
           </Text>
           <Text style={{ color: 'white', marginLeft: 10 }}>To read!!!</Text>
           <Pressable style={styles.button} onPress={handleExplore}>
-            <Text style={{ fontSize: 12, color: '#F89182' }}>Explore{currentIndex}</Text>
+            <Text style={{ fontSize: 12, color: '#F89182' }}>Explore</Text>
           </Pressable>
         </ImageBackground>
       </View>
@@ -155,7 +250,34 @@ export default Homepage = () => {
       <View style={styles.dotsContainer}>
         {[0, 1, 2].map((index) => renderDot(index))}
       </View>
+      <View >
+      <Text style={styles.category}>Categories</Text>
+      <View style={{height:30, marginLeft:16}}>
+      <FlatList
+        data={DATA}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={renderCategoryItem}
+        keyExtractor={(item) => item.id}
+      />
+      </View>
+      {/* <ScrollView> */}
+        <View style={{flex:1, flexGrow: 1, justifyContent:"center",alignItems:'center'}}>
+      <FlatList
+        data={filteredBooks}
+        numColumns={3}
+        vertical={true}
+        // style={{flex:1}}
+        contentContainerStyle={styles.bookListContainer}
+        // showsVerticalScrollIndicator={false}
+        renderItem={renderBookItem}
+        keyExtractor={(item) => item.id}
+      />
+      </View>
+      {/* </ScrollView> */}
     </View>
+    </View>
+    
   );
 };
 
@@ -170,11 +292,12 @@ const styles = StyleSheet.create({
     // paddingBottom: '2%',
     margin: '5%',
     height: 160,
+    // width: '95%',
     // borderRadius: 11,
   },
   topImage: {
     marginRight: 16,
-    width: 350,
+    width: 330,
     height: 160,
   },
   button: {
@@ -248,5 +371,57 @@ const styles = StyleSheet.create({
   },
   focusedSearchInput: {
     borderColor: 'transparent',
+  },
+  bookContainer: {
+    // flex: 1,
+    // paddingHorizontal: 20,
+    // paddingTop: 40,
+    // backgroundColor: '#fff',
+    // width: '90%',
+    // height: '100%',
+  },
+  category: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 12,
+    marginLeft: 12,
+    color: 'white',
+  },
+  categoryItem: {
+    // paddingVertical: 10,
+    height: 25,
+    paddingHorizontal: 10,
+    // backgroundColor: '#f2f2f2',
+    // borderRadius: 20,
+    marginRight: 10,
+    // marginLeft: 20,
+  },
+  selectedCategoryItem: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#F2920B',
+  },
+  categoryTitle: {
+    fontSize: 10,
+    // fontWeight: 'bold',
+    color: 'white',
+  },
+  bookContainer: {
+    width: "33.33%",
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  bookImage: {
+    width: 100,
+    height: 150,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  bookTitle: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white',
+  },
+  bookListContainer: {
+    paddingBottom: 20,
   },
 });
