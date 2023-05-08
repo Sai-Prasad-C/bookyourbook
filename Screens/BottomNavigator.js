@@ -10,7 +10,7 @@ const Bottom = createBottomTabNavigator();
 
 export default BottomNavigator = () => {
   return (
-    <Bottom.Navigator screenOptions={{tabBarStyle:{height:60}}}>
+    <Bottom.Navigator screenOptions={{tabBarStyle:{height:68,paddingBottom:10}}}>
       <Bottom.Screen
         name="My Library"
         component={Library}
@@ -21,8 +21,8 @@ export default BottomNavigator = () => {
               <Image
                 source={require('../images/library.png')}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 26,
+                  height: 26,
                   tintColor: tabInfo.focused ? '#F2920B' : '#BFBFBF',
                 }}
               />
@@ -40,8 +40,8 @@ export default BottomNavigator = () => {
               <Image
                 source={require('../images/home.png')}
                 style={{
-                  width: 17,
-                  height: 17,
+                  width: 23,
+                  height: 23,
                   tintColor: tabInfo.focused ? '#F2920B' : '#BFBFBF',
                 }}
               />
@@ -59,8 +59,8 @@ export default BottomNavigator = () => {
               <Image
                 source={require('../images/book.png')}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 30,
+                  height: 30,
                   tintColor: tabInfo.focused ? '#F2920B' : '#BFBFBF',
                 }}
               />
@@ -78,8 +78,8 @@ export default BottomNavigator = () => {
               <Image
                 source={require('../images/profile.png')}
                 style={{
-                  width: 20,
-                  height: 20,
+                  width: 30,
+                  height: 30,
                   tintColor: tabInfo.focused ? '#F2920B' : '#BFBFBF',
                 }}
               />
